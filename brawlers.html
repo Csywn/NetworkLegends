@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+
+.link {
+  stroke: #ccc;
+  stroke-width: 0.5;
+  fill: none;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif white;
+}
+
+</style>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>The Network of Legends</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead2 clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">The Network of Legends</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="champions.html">Champions</a></li>
+                  <li class="active"><a href="#">Brawlers</a></li>
+		  <li><a href="teams.html">Teams</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+
+         <!-- <input type="button" onclick="jungle_roulette()" value="Count rabbits!"/>-->
+
+          <div class="bichos">
+              <!--<p class="lead">-->
+              <p>The graph shows the most played combinations of Brawlers. If you move the mouse over the pictures you can see the probability of winning (green links) or loosing (red links) the game playing against the other combinations. The thicker the link the higher the probability.</p>
+<p>Further information about this combinations is shown in the table below.</p>
+              &nbsp;
+	      <p align="left" id="mid" class="bichos_ruleta"></p>
+
+            <script src="bichos/roulette_bichos.js"></script>
+            <script>bichos_roulette()</script>
+          </div>
+
+          <div class="info_table">
+            <p id="brawlers_table"></p>
+            <script src="bichos/table.js"></script>
+            <script>drawTable_Mid()</script>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  </body>
+</html>

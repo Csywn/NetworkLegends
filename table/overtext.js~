@@ -1,0 +1,8 @@
+function overTextChamp(d) {
+      var g = d3.select(this);
+      var info = g.append('text')
+          .classed('name',true)
+          .style("fill","white")
+          .style("font-size","18px")
+          .text(function(d) { return d.id; });
+}
