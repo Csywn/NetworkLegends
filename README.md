@@ -9,12 +9,12 @@ The tools we have created help us to predict the most probable outcomes studying
 The web page has the following sections:
 
 - Champions:
-  - There is a graph for each lane where the most played champions of that lane are linked together. If the source champion has a high probability of winning (see *methodology*) versus the target champion the link will be green and red otherwise (if there is no link between two champions it means that both probabilities are roughly the same). The thickness of the link is proportional to that probability.
+  - There is a graph, for each lane, in which the most played champions of that lane are linked together. If the source champion has a high probability of winning (see *methodology*) versus the target champion the link will be green and red otherwise (if there is no link between two champions it means that both probabilities are roughly the same). The thickness of the link is proportional to that probability.
 
   - A table with the win rate, pick rate, average K/D/A and the most common Black Market Brawlers items for each champion played on that lane.
 
 - Brawlers:
-  - There is a graph where the most common combinations of brawlers as nodes. The color and thickness of the links have the same meaning as above.
+  - In this graph the most common combinations of brawlers are the nodes. The color and thickness of the links have the same meaning as above.
   - Also there is a table with the pick rate and win rate of each combination.
 
 - Teams:
@@ -31,7 +31,7 @@ Due to heroku limits the web might be temporary disabled (unlikely) and you will
 
 We have used the set of Black Market Brawlers match IDs corresponding to EUW server.
 
-1.**Champion graphs:** for each match we determine which champion (or champions in the case of bot lane) have won their lane using the following criteria:
+**1.Champion graphs:** for each match we determine which champion (or champions in the case of bot lane) have won their lane using the following criteria:
 
   - 2 points are added to the champion who breaks the first tower in the game.
   - 1 point its added to those champions who have obtained at least 1.2 times the gold his counterpart has in the first 10 minutes.
@@ -40,19 +40,19 @@ We have used the set of Black Market Brawlers match IDs corresponding to EUW ser
 
 Once the first tower is broken we consider that the lane phase is over and compare the points of each pair. We consider that the one with more points has won the lane. If we repeat this process for all the matches we get the probability of winning each lane for each pair of champions. For the purpose of visualization only the most picked champions are shown.
 
-The code is inside /codes/Champions/. For each lane first it is necessary to execute "link\_*lane*.R" and then "script\_champions_*lane*.R", although the raw data is missing (due to the rules of the contest) and it should be provided.
+The code is inside /codes/Champions/. For each lane first it is necessary to execute "link\_*lane*.R" and then "script\_champions_*lane*.R", although the raw data is missing (due to the rules of the contest) and it should be provided by the user.
 
-2.**Champion tables:** essentially we have just calculated the win rate, pick rate and average KDA of the champions played in each lane. The most popular items of the black market for each champion are also shown.
+**2.Champion tables:** essentially we have just calculated the win rate, pick rate and average KDA of the champions played in each lane. The most popular items of the black market for each champion are also shown.
 
 The code is inside /codes/Champions/. Raw data should be provided.
 
-3.**Brawlers graph:** first we record the combination of brawlers bought by each team and then we consider that the best one is the one of the winner team. Averaging over all matches we obtain the winning probability of each combination versus the rest.
+**3.Brawlers graph:** first we record the combination of brawlers bought by each team and then we consider that the best one is the one of the winner team. Averaging over all matches we obtain the winning probability of each combination versus the rest.
 
 The code is inside /codes/Brawlers/. First it is necessary to execute "script\_brawlers\_groups.R", then "links\_brawlers.R" and finally "script\_brawlers\_roulette.R".
 
-4.**Brawlers table:** see 2.
+**4.Brawlers table:** see 2.
 
-5.**Teams graph:** in this last section we have created a network of champions and then we have measured its structure using modularity.
+**5.Teams graph:** in this last section we have created a network of champions and then we have measured its structure using modularity.
 
 To create our network we have regarded each champion as a node of the network. Then, a link is added between two nodes if they have won a game while playing in the same team. After normalizing the weight of the links we have our network.
 
