@@ -1,6 +1,6 @@
 library(jsonlite)
 
-tops = read.table("champions_top.txt",header=FALSE)
+tops = read.table("champions_mid.txt",header=FALSE)
 
 radius = 300
 pi = 3.14159265359
@@ -29,7 +29,7 @@ colnames(b) = c("group","name","id","x","y","fixed")
 #b=b[which(b$group==tops),]
 
 ###Links
-wins = read.table("top_win.txt",header=FALSE)
+wins = read.table("mid_win.txt",header=FALSE)
 for(i in 1:length(wins[,1]))
 {
   wins[i,1] = b$id[which(b$group==wins[i,1])]
@@ -52,4 +52,4 @@ d[,3] = d[,3]*5
 a$links = d
 a$nodes = b
 export = toJSON(a)
-write(export,"champions_top.json")
+write(export,"champions_mid.json")

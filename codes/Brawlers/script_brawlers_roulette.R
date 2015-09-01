@@ -2,12 +2,13 @@ library(jsonlite)
 
 radius = 300
 pi = 3.14159265359
-x_0 = 500
-y_0 = 450
+x_0 = 600
+y_0 = 550
 
 a = fromJSON("../Champions/champions_backup.json")
 
 b = read.table("brawlers_groups.txt",header=TRUE)
+b = b[1:50,]
 b = data.frame(group=c(0:(length(b[,1])-1)))
 x = rep(0,length(b[,1]))
 y = rep(0,length(b[,1]))
@@ -38,16 +39,17 @@ wins[,2] = wins[,2] - 1
 #}
 d = a$links
 d = d[1:2,]
-d[1,] = c(wins[1,1],wins[1,2],wins[1,3]-wins[1,4])
+d[1,] = c(wins[1,1],wins[1,2],(wins[1,3]-wins[1,4])/(wins[1,3]+wins[1,4]))
 d[2,] = c(wins[1,2],wins[1,1],wins[1,4]-wins[1,3])
 
 for(i in 2:length(wins[,1]))
 {
-  d[i*2-1,] = c(wins[i,1],wins[i,2],wins[i,3]-wins[i,4])
-  d[i*2,] = c(wins[i,2],wins[i,1],wins[i,4]-wins[i,3])
+  d[i*2-1,] = c(wins[i,1],wins[i,2],(wins[i,3]-wins[i,4])/(wins[1,3]+wins[1,4]))
+  d[i*2,] = c(wins[i,2],wins[i,1],(wins[i,4]-wins[i,3])/(wins[1,3]+wins[1,4]))
 }
 
 d = d[which(d[,3]!=0),]
+d[,3] = d[,3]*20
 
 a$links = d
 a$nodes = b

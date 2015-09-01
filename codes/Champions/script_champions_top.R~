@@ -46,9 +46,6 @@ for(i in 2:length(wins[,1]))
   d[i*2,] = c(wins[i,2],wins[i,1],(wins[i,4]-wins[i,3])/(wins[i,3]+wins[i,4]))
 }
 
-d = d[which(d[,3]!=0),]
-d[,3] = d[,3]*5
-
 a$links = d
 a$nodes = b
 export = toJSON(a)
