@@ -1,0 +1,122 @@
+library(jsonlite)
+
+ids = fromJSON("../BILGEWATER/EUW.json")
+champ = read.table("champions_ids.txt",header=TRUE)
+tops = read.table("champions_top.txt",header=FALSE)
+
+top = c()
+for(i in 1:length(tops[,1]))
+{
+  top = c(top,rep(tops[i,1],length(tops[,1])))
+}
+duo = data.frame(uno=top,dos=rep(tops[,1],length(tops[,1])))
+
+duo = unique(as.data.frame(t(apply(duo,1,sort,decreasing=F))))
+duo = duo[order(duo[,1]),]
+duo = duo[which(duo[,1]!=duo[,2]),]
+
+duo_win = data.frame(uno=duo[,1],dos=duo[,2],win_uno=rep(0,length(duo[,1])),win_dos=rep(0,length(duo[,2])))
+
+for(i in 1:length(ids))
+{
+  name = sprintf("matches_timeline/match_%.0f.json",ids[i])
+  a = fromJSON(name)
+  top_n = which(a$participants$timeline$lane=="TOP")
+  top = a$participants$championId[which(a$participants$timeline$lane=="TOP")]
+
+  puntos = c(0,0)
+  if(length(top)==2)
+  {
+    if(length(duo[which(duo[,1]==top[1]&duo[,2]==top[2]),])>0|length(duo[which(duo[,1]==top[2]&duo[,2]==top[1]),])>0)
+    {
+      #Se busca la primera torre que se ha roto
+      for(j in 1:length(a$timeline$frames$events))
+      {
+        k = which(a$timeline$frames$events[[j]]$eventType=="BUILDING_KILL")
+        if(length(k)>0)
+        {
+          k = k[1]
+          time = a$timeline$frames$events[[j]]$timestamp[k]
+          break
+        }
+      }
+      killer = a$timeline$frames$events[[j]]$killerId[k]
+
+      #Puntos torre
+      if(killer==top_n[1])
+      {
+        puntos[1] = puntos[1] + 2
+      } else if (killer==top_n[2]) {
+        puntos[2] = puntos[2] + 2
+      }
+
+      #Puntos oro
+      if(a$participants$timeline$goldPerMinDeltas$zeroToTen[top_n[1]]>(a$participants$timeline$goldPerMinDeltas$zeroToTen[top_n[2]]*1.2))
+      {
+        puntos[1] = puntos[1] + 1
+      } else if(a$participants$timeline$goldPerMinDeltas$zeroToTen[top_n[2]]>(a$participants$timeline$goldPerMinDeltas$zeroToTen[top_n[1]]*1.2)) {
+        puntos[2] = puntos[2] + 1
+      }
+
+      #Puntos kills
+      for(j in 1:length(a$timeline$frames$events))
+      {
+        k = which(a$timeline$frames$events[[j]]$eventType=="CHAMPION_KILL"&a$timeline$frames$events[[j]]$timestamp<time)
+        if(length(k)>0)
+        {
+          for(l in 1:length(k))
+          {
+            if(a$timeline$frames$events[[j]]$killerId[k[l]]==top_n[1])
+            {
+              puntos[1] = puntos[1] + 1
+            } else if (a$timeline$frames$events[[j]]$killerId[k[l]]==top_n[2]) {
+              puntos[2] = puntos[2] + 1
+            }
+
+            if(length(a$timeline$frames$events[[j]]$assistingParticipantIds)>0)
+            {
+              if(!is.null(a$timeline$frames$events[[j]]$assistingParticipantIds[[k[l]]]))
+              {
+                for(m in 1:length(a$timeline$frames$events[[j]]$assistingParticipantIds[[k[l]]]))
+                {
+                  if(a$timeline$frames$events[[j]]$assistingParticipantIds[[k[l]]][m]==top_n[1])
+                  {
+                    puntos[1] = puntos[1] + 0.5
+                  } else if (a$timeline$frames$events[[j]]$assistingParticipantIds[[k[l]]][m]==top_n[2]) {
+                    puntos[2] = puntos[2] + 0.5
+                  }
+                }
+              }
+           }
+
+            if(a$timeline$frames$events[[j]]$timestamp[length(a$timeline$frames$events[[j]]$timestamp)]>time)
+            {
+              break
+            }
+          }
+        }
+      }
+    }
+
+    if(top[1]<top[2])
+    {
+      n = which(duo[,1]==top[1]&duo[,2]==top[2])
+      if(puntos[1]>puntos[2])
+      {
+        duo_win[n,3] = duo_win[n,3] + 1
+      } else if(puntos[1]<puntos[2]) {
+        duo_win[n,4] = duo_win[n,4] + 1
+      }
+    } else {
+      n = which(duo[,1]==top[2]&duo[,1]==top[2])
+      if(puntos[1]>puntos[2])
+      {
+        duo_win[n,4] = duo_win[n,4] + 1
+      } else if(puntos[1]<puntos[2]) {
+        duo_win[n,3] = duo_win[n,3] + 1
+      }
+    }
+  }    
+}
+
+write.table(duo_win,"top_win.txt",row.names=FALSE,col.names=FALSE)

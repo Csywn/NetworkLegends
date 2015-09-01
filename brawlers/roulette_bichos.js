@@ -3,10 +3,10 @@ var margin = {top: -90, right: 0, bottom: 0, left: -120};
 var width = 1000 - margin.left - margin.right,
     height = 950 - margin.top - margin.bottom;
 
-function bichos_roulette()
+function brawlers_roulette()
 {
   d3.select("svg").remove();
-  ruleta = "bichos/bichos.json";
+  ruleta = "brawlers/brawlers.json";
   roulette(ruleta)
 }
 
@@ -14,7 +14,7 @@ function roulette(ruleta){
 var svg = d3.select("#mid").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-    .attr("style", "outline: thin solid red;") 
+    /*.attr("style", "outline: thin solid red;") */
     .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -90,56 +90,56 @@ d3.json(ruleta, function(error, json) {
 
 
   var imageByGroup = {
-   "1": "bichos/bichos/1.png",
-   "2": "bichos/bichos/2.png",
-   "3": "bichos/bichos/3.png",
-   "4": "bichos/bichos/4.png",
-   "5": "bichos/bichos/5.png",
-   "6": "bichos/bichos/6.png",
-   "7": "bichos/bichos/7.png",
-   "8": "bichos/bichos/8.png",
-   "9": "bichos/bichos/9.png",
-   "10": "bichos/bichos/10.png",
-   "11": "bichos/bichos/11.png",
-   "12": "bichos/bichos/12.png",
-   "13": "bichos/bichos/13.png",
-   "14": "bichos/bichos/14.png",
-   "15": "bichos/bichos/15.png",
-   "16": "bichos/bichos/16.png",
-   "17": "bichos/bichos/17.png",
-   "18": "bichos/bichos/18.png",
-   "19": "bichos/bichos/19.png",
-   "20": "bichos/bichos/20.png",
-   "21": "bichos/bichos/21.png",
-   "22": "bichos/bichos/22.png",
-   "23": "bichos/bichos/23.png",
-   "24": "bichos/bichos/24.png",
-   "25": "bichos/bichos/25.png",
-   "26": "bichos/bichos/26.png",
-   "27": "bichos/bichos/27.png",
-   "28": "bichos/bichos/28.png",
-   "29": "bichos/bichos/29.png",
-   "30": "bichos/bichos/30.png",
-   "31": "bichos/bichos/31.png",
-   "32": "bichos/bichos/32.png",
-   "33": "bichos/bichos/33.png",
-   "34": "bichos/bichos/34.png",
-   "35": "bichos/bichos/35.png",
-   "36": "bichos/bichos/36.png",
-   "37": "bichos/bichos/37.png",
-   "38": "bichos/bichos/38.png",
-   "39": "bichos/bichos/39.png",
-   "40": "bichos/bichos/40.png",
-   "41": "bichos/bichos/41.png",
-   "42": "bichos/bichos/42.png",
-   "43": "bichos/bichos/43.png",
-   "44": "bichos/bichos/44.png",
-   "45": "bichos/bichos/45.png",
-   "46": "bichos/bichos/46.png",
-   "47": "bichos/bichos/47.png",
-   "48": "bichos/bichos/48.png",
-   "49": "bichos/bichos/49.png",
-   "50": "bichos/bichos/51.png"
+   "1": "brawlers/brawlers_line/1.png",
+   "2": "brawlers/brawlers_line/2.png",
+   "3": "brawlers/brawlers_line/3.png",
+   "4": "brawlers/brawlers_line/4.png",
+   "5": "brawlers/brawlers_line/5.png",
+   "6": "brawlers/brawlers_line/6.png",
+   "7": "brawlers/brawlers_line/7.png",
+   "8": "brawlers/brawlers_line/8.png",
+   "9": "brawlers/brawlers_line/9.png",
+   "10": "brawlers/brawlers_line/10.png",
+   "11": "brawlers/brawlers_line/11.png",
+   "12": "brawlers/brawlers_line/12.png",
+   "13": "brawlers/brawlers_line/13.png",
+   "14": "brawlers/brawlers_line/14.png",
+   "15": "brawlers/brawlers_line/15.png",
+   "16": "brawlers/brawlers_line/16.png",
+   "17": "brawlers/brawlers_line/17.png",
+   "18": "brawlers/brawlers_line/18.png",
+   "19": "brawlers/brawlers_line/19.png",
+   "20": "brawlers/brawlers_line/20.png",
+   "21": "brawlers/brawlers_line/21.png",
+   "22": "brawlers/brawlers_line/22.png",
+   "23": "brawlers/brawlers_line/23.png",
+   "24": "brawlers/brawlers_line/24.png",
+   "25": "brawlers/brawlers_line/25.png",
+   "26": "brawlers/brawlers_line/26.png",
+   "27": "brawlers/brawlers_line/27.png",
+   "28": "brawlers/brawlers_line/28.png",
+   "29": "brawlers/brawlers_line/29.png",
+   "30": "brawlers/brawlers_line/30.png",
+   "31": "brawlers/brawlers_line/31.png",
+   "32": "brawlers/brawlers_line/32.png",
+   "33": "brawlers/brawlers_line/33.png",
+   "34": "brawlers/brawlers_line/34.png",
+   "35": "brawlers/brawlers_line/35.png",
+   "36": "brawlers/brawlers_line/36.png",
+   "37": "brawlers/brawlers_line/37.png",
+   "38": "brawlers/brawlers_line/38.png",
+   "39": "brawlers/brawlers_line/39.png",
+   "40": "brawlers/brawlers_line/40.png",
+   "41": "brawlers/brawlers_line/41.png",
+   "42": "brawlers/brawlers_line/42.png",
+   "43": "brawlers/brawlers_line/43.png",
+   "44": "brawlers/brawlers_line/44.png",
+   "45": "brawlers/brawlers_line/45.png",
+   "46": "brawlers/brawlers_line/46.png",
+   "47": "brawlers/brawlers_line/47.png",
+   "48": "brawlers/brawlers_line/48.png",
+   "49": "brawlers/brawlers_line/49.png",
+   "50": "brawlers/brawlers_line/51.png"
   };
 
   icono_width = 156;

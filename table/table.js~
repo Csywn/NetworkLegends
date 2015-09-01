@@ -73,7 +73,7 @@ function drawTable() {
                    tableCell: 'table-cell'
                    },
 		  sortAscending: false,
-		  sortColumn: 2
+		  sortColumn: columna
                 };
 
   var table = new google.visualization.Table(document.getElementById('champ_table'));

@@ -1,0 +1,53 @@
+library(jsonlite)
+
+tops = read.table("champions_top.txt",header=FALSE)
+
+radius = 300
+pi = 3.14159265359
+x_0 = 500
+y_0 = 450
+
+a = fromJSON("champions_backup.json")
+b = a$nodes
+b = b[b[,1]%in%tops[,1],]
+b = cbind(b,c(0:(length(b[,1])-1)))
+x = rep(0,length(b[,1]))
+y = rep(0,length(b[,1]))
+b = b[order(b$name),]
+for(i in 0:(length(b[,1])-1))
+{
+  alpha = i*360/length(tops[,1])
+  r=radius
+  x[i+1] = r*cos((alpha+90)*pi/180.0) + x_0
+  y[i+1] = r*sin((alpha+90)*pi/180.0) + y_0
+}
+b = cbind(b,x,y)
+fixed = rep("true",length(b[,1]))
+b= cbind(b,fixed)
+colnames(b) = c("group","name","id","x","y","fixed")
+#colnames(b) = c("group","name","id","fixed")
+#b=b[which(b$group==tops),]
+
+###Links
+wins = read.table("top_win.txt",header=FALSE)
+for(i in 1:length(wins[,1]))
+{
+  wins[i,1] = b$id[which(b$group==wins[i,1])]
+  wins[i,2] = b$id[which(b$group==wins[i,2])]
+}
+d = a$links
+d = d[1:2,]
+d[1,] = c(wins[1,1],wins[1,2],wins[1,3]-wins[1,4])
+d[2,] = c(wins[1,2],wins[1,1],wins[1,4]-wins[1,3])
+
+for(i in 2:length(wins[,1]))
+{
+  d[i*2-1,] = c(wins[i,1],wins[i,2],wins[i,3]-wins[i,4])
+  d[i*2,] = c(wins[i,2],wins[i,1],wins[i,4]-wins[i,3])
+}
+d[,3] = d[,3]/5
+
+a$links = d
+a$nodes = b
+export = toJSON(a)
+write(export,"champions_top.json")

@@ -2,7 +2,7 @@ google.load("visualization", "1.1", {packages:["table"]});
 
 function drawTable_Mid(){
   jsonData = $.ajax({
-       url: "bichos/tabla_brawlers.json",
+       url: "brawlers/table_brawlers.json",
        dataType:"json",
        async: false
        }).responseText;
@@ -21,6 +21,8 @@ function drawTable() {
                    tableRow: 'tabla-row',
                    oddTableRow: 'tabla-row-odd',
                    headerCell: 'header-cell',
+                   hoverTableRow: 'hover-row',
+                   selectedTableRow: 'selected-row', 
                    tableCell: 'table-cell'
                    },
 		sortAscending: false,

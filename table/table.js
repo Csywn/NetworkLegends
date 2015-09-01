@@ -3,14 +3,14 @@ google.load("visualization", "1.1", {packages:["table"]});
 var columna = 2;
 
 var jsonData = $.ajax({
-     url: "table/tabla_mid.json",
+     url: "table/table_mid.json",
      dataType:"json",
      async: false
      }).responseText;
 
 function drawTable_Top(){
   jsonData = $.ajax({
-       url: "table/tabla_top.json",
+       url: "table/table_top.json",
        dataType:"json",
        async: false
        }).responseText;
@@ -22,7 +22,7 @@ function drawTable_Top(){
 
 function drawTable_Jungle(){
   jsonData = $.ajax({
-       url: "table/tabla_jungle.json",
+       url: "table/table_jungle.json",
        dataType:"json",
        async: false
        }).responseText;
@@ -34,7 +34,7 @@ function drawTable_Jungle(){
 
 function drawTable_Mid(){
   jsonData = $.ajax({
-       url: "table/tabla_mid.json",
+       url: "table/table_mid.json",
        dataType:"json",
        async: false
        }).responseText;
@@ -46,7 +46,7 @@ function drawTable_Mid(){
 
 function drawTable_Bot(){
   jsonData = $.ajax({
-       url: "table/tabla_bote.json",
+       url: "table/table_bote.json",
        dataType:"json",
        async: false
        }).responseText;
